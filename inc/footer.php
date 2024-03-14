@@ -1,7 +1,7 @@
 </div>
 </main>
 
-<footer class="text-center mt-5">
+<footer class="text-center mt-5 mb-3">
     Copyright &copy; 2024
 </footer>
 

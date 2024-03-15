@@ -27,6 +27,17 @@ if (isset($_POST['submit'])) {
     } else {
         $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
     }
+
+    if (!$nameErr && !$emailErr && !$bodyErr) {
+        // add to the database
+        $sql = "INSERT INTO ideas (name,email,body) VALUES ('$name','$email','$body') ";
+        if (mysqli_query($conn, $sql)) {
+            //success
+            header('Location: ideas.php');
+        } else {
+            echo 'Error: ' . mysqli_error($conn);
+        }
+    }
 }
 ?>
 

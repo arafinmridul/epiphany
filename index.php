@@ -1,13 +1,39 @@
 <?php include 'inc/header.php'; ?>
 
 <?php // require 'inc/header.php'; 
-// if require is not found, it will stop the execution of the code
+?>
+
+<?php
+$name = $email = $body = "";
+$nameErr = $emailErr = $bodyErr = "";
+
+// form submission
+if (isset($_POST['submit'])) {
+    // validate name
+    if (empty($_POST['name'])) {
+        $nameErr = 'Name is required';
+    } else {
+        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    }
+    // validate email
+    if (empty($_POST['email'])) {
+        $emailErr = 'Email is required';
+    } else {
+        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+    }
+    // validate body
+    if (empty($_POST['body'])) {
+        $bodyErr = 'Idea is required';
+    } else {
+        $body = filter_input(INPUT_POST, 'body', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+    }
+}
 ?>
 
 <img src="img/mysql-logo.png" class="w-25 mb-3" alt="">
 <h2>Epiphany</h2>
 <p class="lead text-center">Leave ideas for Epiphany</p>
-<form action="" class="mt-4 w-75">
+<form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="mt-4 w-75">
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
